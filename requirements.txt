@@ -102,8 +102,9 @@ typing_extensions==4.12.2
 typing-inspection==0.4.0
 tzdata==2025.2
 urllib3==2.5.0
-wandb==0.22.2
+wandb
 watchdog==6.0.0
 wheel==0.45.1
 win_inet_pton==1.1.0
 zstandard==0.23.0
+
