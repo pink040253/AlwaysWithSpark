@@ -44,7 +44,7 @@ jsonpointer==2.1
 jsonschema==4.25.1
 jsonschema-specifications==2025.9.1
 kiwisolver==1.4.9
-libmambapy==2.0.5
+# libmambapy==2.0.5
 markdown-it-py==2.2.0
 MarkupSafe==3.0.2
 matplotlib==3.10.7
@@ -107,6 +107,7 @@ watchdog==6.0.0
 wheel==0.45.1
 win_inet_pton==1.1.0
 zstandard==0.23.0
+
 
 
 
