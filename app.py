@@ -56,8 +56,8 @@ def api_keys_dialog(logged=False):
             
         else:
             st.error(openai_key)
-            st.session_state.openai_key = openai_key
-            st.session_state.wandb_key = wandb_key
+            # st.session_state.openai_key = openai_key
+            # st.session_state.wandb_key = wandb_key
 
             # try:
                 # 確認 api keys
@@ -386,6 +386,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
