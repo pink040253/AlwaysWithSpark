@@ -305,11 +305,11 @@ def main():
                     st.session_state.Graph_display = None
                     st.session_state.Graph = None
                     st.session_state.first_quest = True
-                    st.session_state.last_select = selected_run
-                    
-                    # st.session_state.run_config = 
-                    if len(runs)>0:
-                        selected_run = runs[selected_run]
+                st.session_state.last_select = selected_run
+                
+                # st.session_state.run_config = 
+                if len(runs)>0:
+                    selected_run = runs[selected_run]
             else:
                 selected_run = None
 
@@ -386,6 +386,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
