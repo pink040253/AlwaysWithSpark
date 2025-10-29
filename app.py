@@ -206,7 +206,7 @@ def check_openai_key_valid(api_key):
         _ = client.models.list()  # 輕量 API 請求
         return True
     except Exception as e:
-        print("OpenAI Key 驗證失敗：", e)
+        st.error("OpenAI Key 驗證失敗：", e)
         return False
 
 def check_wandb_key_valid(api_key):
@@ -215,7 +215,7 @@ def check_wandb_key_valid(api_key):
         _ = wandb.Api()
         return True
     except Exception as e:
-        print("WanDB Key 驗證失敗：", e)
+        st.error("WanDB Key 驗證失敗：", e)
         return False
 
 
@@ -251,6 +251,8 @@ def main():
         st.session_state.Graph = None    # AF:不需要這樣寫
     if "first_quest" not in st.session_state:
         st.session_state.first_quest = True
+    if "last_select" not in st.session_state:
+        st.session_state.last_select = None
 
     # Initialize chat history
     if "messages" not in st.session_state:
@@ -295,16 +297,19 @@ def main():
 
         with col2:
             if selected_project:
-                st.session_state.messages = []
-                st.session_state.Graph_display = None
-                st.session_state.Graph = None
-                st.session_state.first_quest = True
-
                 runs = st.session_state.runs_list[st.session_state.project_list.index(selected_project)]
                 selected_run = st.selectbox("🧪 選擇實驗 (Run)：", runs.keys())
-                # st.session_state.run_config = 
-                if len(runs)>0:
-                    selected_run = runs[selected_run]
+                
+                if selected_run == st.session_state.last_select:
+                    st.session_state.messages = []
+                    st.session_state.Graph_display = None
+                    st.session_state.Graph = None
+                    st.session_state.first_quest = True
+                    st.session_state.last_select = selected_run
+                    
+                    # st.session_state.run_config = 
+                    if len(runs)>0:
+                        selected_run = runs[selected_run]
             else:
                 selected_run = None
 
@@ -381,5 +386,6 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
