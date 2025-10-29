@@ -233,6 +233,10 @@ def main():
         st.session_state.wandb_logged = False
     if "openai_logged" not in st.session_state:
         st.session_state.openai_logged = False
+    if "wandb_key" not in st.session_state:
+        st.session_state.wandb_logged = False
+    if "openai_key" not in st.session_state:
+        st.session_state.openai_logged = False
     if "api" not in st.session_state:
         st.session_state.api = None
     if "client" not in st.session_state:
@@ -386,6 +390,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
