@@ -33,12 +33,12 @@ st.markdown(hide_submit_text, unsafe_allow_html=True)
 @st.dialog("🔐 API 金鑰設定", dismissible=False)
 def api_keys_dialog(logged=False):
     openai_key = st.text_input(
-        "OpenAI API Key：", type="password" , value=st.session_state.get("openai_key", "")
+        "OpenAI API Key：", type="password", value=st.session_state.get("openai_key", "")
     )
     wandb_key = st.text_input(
-        "WandB API Key：", type="password" , value=st.session_state.get("wandb_key", "")
+        "WandB API Key：", type="password", value=st.session_state.get("wandb_key", "")
     )
-    
+
     
     if logged == True:
         col1, col2 = st.columns(2, vertical_alignment="bottom")
@@ -55,7 +55,6 @@ def api_keys_dialog(logged=False):
             st.warning(f"⚠️ 目前輸入長度為 {len(wandb_key.strip())}，應為 40 字元。")
             
         else:
-            st.error(openai_key)
             st.session_state.openai_key = openai_key
             st.session_state.wandb_key = wandb_key
 
@@ -146,7 +145,7 @@ def analyze_plot_with_gpt(image_base64, client, user_query=None):
             "role": "user",
             "content": [
                 {"type": "text",
-                 "text": "這是在trainning時的rewards趨勢，請你幫我分析各項影響結果的參數趨勢。"},
+                 "text": "請分析這張 Reward 圖表的趨勢，說明訓練過程中模型的學習狀況與可能的問題。"},
                 {"type": "image_url",
                  "image_url": {"url": f"data:image/png;base64,{image_base64}"}}
             ]
@@ -206,7 +205,7 @@ def check_openai_key_valid(api_key):
         _ = client.models.list()  # 輕量 API 請求
         return True
     except Exception as e:
-        st.error("OpenAI Key 驗證失敗：", e)
+        print("OpenAI Key 驗證失敗：", e)
         return False
 
 def check_wandb_key_valid(api_key):
@@ -215,7 +214,7 @@ def check_wandb_key_valid(api_key):
         _ = wandb.Api()
         return True
     except Exception as e:
-        st.error("WanDB Key 驗證失敗：", e)
+        print("WanDB Key 驗證失敗：", e)
         return False
 
 
@@ -233,10 +232,6 @@ def main():
         st.session_state.wandb_logged = False
     if "openai_logged" not in st.session_state:
         st.session_state.openai_logged = False
-    if "wandb_key" not in st.session_state:
-        st.session_state.wandb_key = ""
-    if "openai_key" not in st.session_state:
-        st.session_state.openai_key = ""
     if "api" not in st.session_state:
         st.session_state.api = None
     if "client" not in st.session_state:
@@ -247,16 +242,13 @@ def main():
         st.session_state.project_list = []
     if "runs_list" not in st.session_state:
         st.session_state.runs_list = []
-    if "run_config" not in st.session_state:
-        st.session_state.run_config = None
     if "Graph_display" not in st.session_state:
         st.session_state.Graph_display = None    # AF:不需要這樣寫
     if "Graph" not in st.session_state:
         st.session_state.Graph = None    # AF:不需要這樣寫
     if "first_quest" not in st.session_state:
         st.session_state.first_quest = True
-    if "last_select" not in st.session_state:
-        st.session_state.last_select = None
+
 
     # Initialize chat history
     if "messages" not in st.session_state:
@@ -303,15 +295,6 @@ def main():
             if selected_project:
                 runs = st.session_state.runs_list[st.session_state.project_list.index(selected_project)]
                 selected_run = st.selectbox("🧪 選擇實驗 (Run)：", runs.keys())
-                
-                if selected_run == st.session_state.last_select:
-                    st.session_state.messages = []
-                    st.session_state.Graph_display = None
-                    st.session_state.Graph = None
-                    st.session_state.first_quest = True
-                st.session_state.last_select = selected_run
-                
-                # st.session_state.run_config = 
                 if len(runs)>0:
                     selected_run = runs[selected_run]
             else:
@@ -388,14 +371,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
-
-
-
-
-
-
-
-
-
