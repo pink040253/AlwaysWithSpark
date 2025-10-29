@@ -33,10 +33,10 @@ st.markdown(hide_submit_text, unsafe_allow_html=True)
 @st.dialog("🔐 API 金鑰設定", dismissible=False)
 def api_keys_dialog(logged=False):
     openai_key = st.text_input(
-        "OpenAI API Key：", type="password" # , value=st.session_state.get("openai_key", "")
+        "OpenAI API Key：", type="password" , value=st.session_state.get("openai_key", "")
     )
     wandb_key = st.text_input(
-        "WandB API Key：", type="password" # , value=st.session_state.get("wandb_key", "")
+        "WandB API Key：", type="password" , value=st.session_state.get("wandb_key", "")
     )
     
     
@@ -55,6 +55,7 @@ def api_keys_dialog(logged=False):
             st.warning(f"⚠️ 目前輸入長度為 {len(wandb_key.strip())}，應為 40 字元。")
             
         else:
+            st.error(type(openai_key))
             st.session_state.openai_key = openai_key
             st.session_state.wandb_key = wandb_key
 
@@ -380,3 +381,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
