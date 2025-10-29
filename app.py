@@ -55,7 +55,7 @@ def api_keys_dialog(logged=False):
             st.warning(f"⚠️ 目前輸入長度為 {len(wandb_key.strip())}，應為 40 字元。")
             
         else:
-            st.error(type(openai_key))
+            st.error(openai_key)
             st.session_state.openai_key = openai_key
             st.session_state.wandb_key = wandb_key
 
@@ -381,4 +381,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
